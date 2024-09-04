@@ -1,0 +1,23 @@
+
+# 获取当前分支名
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# 主分支名称，这里假设为 master
+main_branch="main"
+
+# 检查当前分支是否为主分支
+if [ "$current_branch" = "$main_branch" ]; then
+  echo "当前已在主分支，请确保代码已更新并准备提交。"
+else
+  # 拉取远程主分支的最新提交
+  git fetch origin "$main_branch"
+
+  # 检查当前分支是否落后于远程主分支
+  if ! git merge-base --is-ancestor origin/"$main_branch" HEAD; then
+    echo "您的分支落后于远程主分支，请先拉取并合并最新的主分支代码。"
+    exit 1
+  fi
+fi
+
+# 如果检查通过，继续执行后续的钩子任务
+exit 0
