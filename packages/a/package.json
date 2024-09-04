@@ -1,5 +1,5 @@
 {
-  "name": "demo-a",
+  "name": "@changeset-demo/demo-a",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
